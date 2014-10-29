@@ -79,3 +79,8 @@ let rec map f = function
 let rec remove_odds = function
   | [] -> []
   | hd :: tl -> if hd mod 2 = 0 then hd :: (remove_odds tl) else remove_odds tl;;
+
+let rec add = function
+  | [], [] -> []
+  | xs, [] | [], xs -> xs
+  | hd1 :: tl1, hd2 :: tl2 -> (hd1 + hd2) :: (add (tl1, tl2))
