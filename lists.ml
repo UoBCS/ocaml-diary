@@ -71,3 +71,7 @@ let rec range a b =
 let rec contains i = function
   | [] -> false
   | hd :: tl -> if i = hd then true else contains i tl;;
+
+let rec map f = function
+  | [] -> []
+  | hd :: tl -> (f hd) :: (map f tl);;
