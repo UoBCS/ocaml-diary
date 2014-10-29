@@ -84,3 +84,8 @@ let rec add = function
   | [], [] -> []
   | xs, [] | [], xs -> xs
   | hd1 :: tl1, hd2 :: tl2 -> (hd1 + hd2) :: (add (tl1, tl2))
+
+let rec interleave = function
+  | [], []                 -> []
+  | xs, [] | [], xs        -> xs
+  | hd1 :: tl1, hd2 :: tl2 -> hd1 :: hd2 :: (interleave (tl1, tl2));;
