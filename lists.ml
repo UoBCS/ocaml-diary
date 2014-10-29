@@ -67,3 +67,7 @@ let rec flatten = function
 let rec range a b =
   if a = b then [a]
   else a :: range (a + 1) b;;
+
+let rec contains i = function
+  | [] -> false
+  | hd :: tl -> if i = hd then true else contains i tl;;
