@@ -75,3 +75,7 @@ let rec contains i = function
 let rec map f = function
   | [] -> []
   | hd :: tl -> (f hd) :: (map f tl);;
+
+let rec remove_odds = function
+  | [] -> []
+  | hd :: tl -> if hd mod 2 = 0 then hd :: (remove_odds tl) else remove_odds tl;;
