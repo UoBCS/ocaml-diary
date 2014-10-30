@@ -68,9 +68,19 @@ let rec range a b =
   if a = b then [a]
   else a :: range (a + 1) b;;
 
-let rec contains i = function
-  | [] -> false
-  | hd :: tl -> if i = hd then true else contains i tl;;
+(* Membership check *)
+let rec mem i = function
+  | []       -> false
+  | hd :: tl -> i = hd || mem i tl;;
+
+(* Check for property satisfaction (predicate logic) *)
+let rec find p = function
+  | []       -> false
+  | hd :: tl -> if p hd then hd else find p tl;;
+
+let rec filter p = function
+  | []      -> []
+  | x :: xs -> if p x then x :: filter p xs else filter p xs;;
 
 let rec map f = function
   | [] -> []
@@ -89,3 +99,11 @@ let rec interleave = function
   | [], []                 -> []
   | xs, [] | [], xs        -> xs
   | hd1 :: tl1, hd2 :: tl2 -> hd1 :: hd2 :: (interleave (tl1, tl2));;
+
+let rec sort = failwith "TODO: sort";;
+
+(* Repeat 'x' y times *)
+let rec repeat x y = match y with
+  | 0 -> []
+  | a -> x :: repeat x (a - 1);;
+
