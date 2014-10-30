@@ -82,6 +82,11 @@ let rec filter p = function
   | []      -> []
   | x :: xs -> if p x then x :: filter p xs else filter p xs;;
 
+(* good and bad *)
+(* let rec partition p = function
+  | [] -> [], []
+  | x :: xs -> (p x x ::  if p x then x :: *)
+
 let rec map f = function
   | [] -> []
   | hd :: tl -> (f hd) :: (map f tl);;
@@ -106,4 +111,8 @@ let rec sort = failwith "TODO: sort";;
 let rec repeat x y = match y with
   | 0 -> []
   | a -> x :: repeat x (a - 1);;
+
+let rec assoc a = function
+  | [] -> failwith "assoc"
+  | (k, v) :: xs -> if a = k then v else assoc a xs;;
 
