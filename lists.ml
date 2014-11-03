@@ -82,10 +82,10 @@ let rec filter p = function
   | []      -> []
   | x :: xs -> if p x then x :: filter p xs else filter p xs;;
 
-(* good and bad *)
-(* let rec partition p = function
+let rec partition p = function
   | [] -> [], []
-  | x :: xs -> (p x x ::  if p x then x :: *)
+  | x :: xs -> let (ps, nps) = partition p xs in
+	       if p x then (x :: ps, nps) else (ps, x :: nps);;
 
 let rec map f = function
   | [] -> []
@@ -116,3 +116,7 @@ let rec assoc a = function
   | [] -> failwith "assoc"
   | (k, v) :: xs -> if a = k then v else assoc a xs;;
 
+let rec prefix xs ys = match (xs, ys) with
+| [], _::_ | [], [] -> true
+| _::_, [] -> false
+| x1 :: xs, y1 :: ys -> x1 = y1 && prefix xs ys;;
