@@ -120,3 +120,14 @@ let rec prefix xs ys = match (xs, ys) with
 | [], _::_ | [], [] -> true
 | _::_, [] -> false
 | x1 :: xs, y1 :: ys -> x1 = y1 && prefix xs ys;;
+
+(* Remove last element in list *)
+let rem_last xs = match rev xs with
+  | [] -> []
+  | x :: xs -> rev xs;;
+
+(* Get prefixes of the given list *)
+let rec prefixes xs = match xs with
+    | []      -> [[]]
+    | l       -> prefixes (rem_last l) @ [l]
+;;
