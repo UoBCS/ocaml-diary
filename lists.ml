@@ -139,4 +139,11 @@ let rec last = function
 let is_palindrome l =
 	l = rev l;;
 
+let rec repeat s = function
+| 0 -> []
+| n -> s :: repeat s (n - 1);;
 
+let rec replicate l n = match (l, n) with
+| [], _      -> []
+| l, 0       -> l
+| x :: xs, n -> (repeat x n) @ replicate xs n;;
