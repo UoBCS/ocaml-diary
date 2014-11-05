@@ -131,3 +131,12 @@ let rec prefixes xs = match xs with
     | []      -> [[]]
     | l       -> prefixes (rem_last l) @ [l]
 ;;
+
+let rec last = function
+| [] -> failwith "last"
+| x :: xs -> if xs = [] then x else last xs;;
+
+let is_palindrome l =
+	l = rev l;;
+
+
