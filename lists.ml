@@ -50,14 +50,10 @@ let rec zip = function
 ;;
 
 (* 4. 'unzip' a list of pairs into two lists *)
-(* let rec unzip = function
-  | [] -> ([], [])
-  | [(x, y)] -> ([x], [y])
-  | (x, y) :: tl -> x :: unzip tl, y :: unzip tl
-;;
-
-(l, l') |> zip |> unzip = (l, l');;
-*)
+let rec unzip = function 
+  | [] -> [], []
+  | [x, y] -> [x], [y]
+  | (x, y) :: tl -> let (a, b) = unzip tl in x :: a, y :: b;;
 
 (* 5. 'flatten' a list of pairs into a single list *)
 let rec flatten = function
