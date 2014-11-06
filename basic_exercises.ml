@@ -16,3 +16,5 @@ let is_upper c = match c with
 ;;
 
 let is_lower c = not (is_upper c);;
+
+let is_bij f = f true <> f false;;

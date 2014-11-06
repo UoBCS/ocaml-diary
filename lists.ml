@@ -143,3 +143,8 @@ let rec replicate l n = match (l, n) with
 | [], _      -> []
 | l, 0       -> l
 | x :: xs, n -> (repeat x n) @ replicate xs n;;
+
+let rec split = function
+    | []        -> [], []
+    | x :: []   -> [x], []
+    | x :: x' :: xs   -> let left, right = split xs in x :: left, x' :: right;;
