@@ -180,3 +180,11 @@ let rec merge_sort = function
             let xs''      = merge_sort xs'' in
             merge (xs', xs'')
 ;;
+
+ let rec insert_at x i = function
+     | []       -> [x]
+     | hd :: tl ->
+             if i = 0
+             then x :: hd :: tl
+             else hd :: insert_at x (i - 1) tl
+ ;;
