@@ -162,3 +162,21 @@ let rec quick_sort = function
     | x :: xs ->
             let smaller, greater = partition (fun a -> a < x) xs in
             (quick_sort smaller) @ [x] @ (quick_sort greater);;
+
+let rec merge = function
+    | xs, []           -> xs
+    | [], ys           -> ys
+    | x :: xs, y :: ys ->
+            if x < y
+            then x :: merge (xs, y :: ys)
+            else y :: merge (x :: xs, ys)
+
+let rec merge_sort = function
+    | []  -> []
+    | [x] -> [x]
+    | xs  ->
+            let xs', xs'' = split xs in
+            let xs'       = merge_sort xs'' in
+            let xs''      = merge_sort xs'' in
+            merge (xs', xs'')
+;;
