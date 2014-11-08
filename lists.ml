@@ -148,3 +148,17 @@ let rec split = function
     | []        -> [], []
     | x :: []   -> [x], []
     | x :: x' :: xs   -> let left, right = split xs in x :: left, x' :: right;;
+
+let rec insert x = function
+    | []      -> [x]
+    | y :: ys -> if x < y then (x :: y :: xs) else (y :: insert x ys);;
+
+let rec insert_sort = function
+    | []      -> []
+    | x :: xs -> insert x insert_sort xs;;
+
+let rec quick_sort = function
+    | []      -> []
+    | x :: xs ->
+            let smaller, greater = partition (fun a -> a < x) xs in
+            (quick_sort smaller) @ [x] @ (quick_sort greater);;
