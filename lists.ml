@@ -188,3 +188,8 @@ let rec merge_sort = function
              then x :: hd :: tl
              else hd :: insert_at x (i - 1) tl
  ;;
+
+let rec rem_leading x = function
+     | []      -> []
+     | y :: ys -> if y = x then rem_leading ys else y :: ys
+ ;;
