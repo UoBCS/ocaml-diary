@@ -191,3 +191,7 @@ let rec rem_leading x = function
      | []      -> []
      | y :: ys -> if y = x then rem_leading ys else y :: ys
  ;;
+ 
+let rec fill x = function
+| 0 -> []
+| n -> let m = fill x (n - 1) in x :: m;;
