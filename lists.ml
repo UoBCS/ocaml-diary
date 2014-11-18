@@ -253,3 +253,52 @@ let rec interleave = function
      | []      -> []
      | y :: ys -> y :: interleave (xs @ [ys])
 ;;
+
+(* Find connected components *)
+let rec elim_consec = function 
+  | [] -> []
+  | [x] -> [x]
+  | x :: x' :: xs -> 
+	if x = x' then elim_consec (x' :: xs) 
+	else x :: elim_consec (x' :: xs)
+;;
+
+let elim_dupls xs = elim_consec (List.sort compare xs);;  (* xs |> sort compare |> elim_consec ;; *)
+
+let combine xs ys = 
+	elim_dupls (List.rev_append xs ys);;
+
+let rec expand x graph explored =
+  match graph with 
+	| [] -> []
+	| (y, y') :: ys ->
+	  if x <> y && x <> y' 
+	  then expand x ys explored
+	  else let x' = if x = y then y' else y in 
+		   if List.mem explored x'
+		   then expand x ys explored
+		   else x' :: (expand x ys  explored) 
+;;
+
+let graph_search graph node =
+  let rec aux graph frontier explored =
+    match frontier with
+    | []      -> explored
+    | x :: xs ->
+       let neighbours = expand x graph explored in
+       let new_frontier = combine xs neighbours in
+       aux graph new_frontier (explored @ [x])
+  in aux graph [node] []
+;;
+
+(* With flatten *)
+let components graph = 
+  let rec aux fin = function
+    | []      -> []
+    | x :: xs ->
+       if List.mem fin x 
+       then aux fin xs
+       else let comp = List.sort compare (graph_search graph x) in
+	    comp :: (aux (fin @ comp) xs)
+  in aux [] (graph |> flatten |> elim_dupls)
+;;
