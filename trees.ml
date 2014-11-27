@@ -50,3 +50,25 @@ let rec delete k = function
      else let (k'', v'') = first_inorder r in
 	  Node ((k'', v''), l, delete k'' r)
 ;;
+
+(* Check expression *)
+type exp =
+  | Val of int
+  | Var of string
+  | Sum of exp * exp
+  | Prod of exp * exp
+  | Let of string * exp * exp;;
+
+let check_exp expr =
+  let rec aux vars = function
+    | Val x         -> true
+    | Var x         -> List.mem vars x (* Check this *)
+    | Sum (x, y)
+    | Prod (x, y)   -> aux vars x && aux vars y
+    | Let (n, v, e) ->
+       if List.mem vars n
+       then false
+       else
+	 aux vars v && aux (n :: vars) e
+  in aux [] expr
+;;
