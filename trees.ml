@@ -72,3 +72,38 @@ let check_exp expr =
 	 aux vars v && aux (n :: vars) e
   in aux [] expr
 ;;
+
+(*
+Write a function 
+
+subst : int -> string -> exp -> exp
+
+which substitutes an integer value (given as first argument) for all occurrences of a variable (given as second argument) in an expression (given as third argument). For example (given as strings):
+
+    if string_of_exp e = "(let y=(x+1) in (x+y))" then string_of_exp (subst 8 "x" e) = "(let y=(8+1) in (8+y))"
+
+    if string_of_exp e = "(let x=1 in (x*(3+3)))" then string_of_exp (subst 7 "x" e) = "(let x=1 in (7*(3+3)))"
+
+ *)
+
+let rec subst n v = function
+  | Val x          -> Val x
+  | Var x          -> if x = v then Val n else Var x
+  | Sum (x, y)     -> Sum (subst n v x, subst n v y)
+  | Prod (x, y)    -> Prod (subst n v x, subst n v y)
+  | Let (vr, x, y) -> Let (vr, subst n v x, subst n v y)
+;;
+     
+(* Evaluation --> -1 not valid expression *)
+let rec eval e = 
+  if not (check_exp e) 
+  then -1
+  else (
+    match e with
+    | Val x         -> x
+    | Var _         -> -1
+    | Sum (x, y)    -> (eval x) + (eval y)
+    | Prod (x, y)   -> (eval x) * (eval y)
+    | Let (n, v, e) -> eval (subst (eval v) n e)
+  )
+;;
