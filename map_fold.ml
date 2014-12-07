@@ -36,4 +36,10 @@ let sum = fold (+) 0;;
 let len = fold (fun _ a -> 1 + a) 0;;
 
 (* Average function (without recursion) *)
-let avg 
+let avg l = (List.fold l ~init:0 ~f:(+)) / (List.length l);;
+
+(* Most frequent element *)
+let count e l = List.fold l ~init:0 ~f:(fun a b -> if b = e then a + 1 else a + 0);;
+
+let count_list l =
+    let c = count l in List.map l ~f:c;;
