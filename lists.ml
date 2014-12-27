@@ -1,3 +1,8 @@
+(*
+    Functions operating on lists
+    Concepts: lists, recursion
+*)
+
 let empty = function
   | []     -> true
   | _ :: _ -> false
