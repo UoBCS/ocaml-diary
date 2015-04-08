@@ -158,6 +158,21 @@ let rec split = function
     | x :: []   -> [x], []
     | x :: x' :: xs   -> let left, right = split xs in x :: left, x' :: right;;
 
+(* Selection sort *)
+let remove x = function
+	| [] -> []
+	| y :: ys -> if x = y then ys else y :: (remove x ys)
+;;
+
+let selection_sort = function
+	| [] -> []
+	| [x] -> [x]
+	| xs -> let x = minl xs in (* Get minimum *)
+			let xs' = remove x xs in
+			x :: (selection_sort xs')
+;;		 
+
+(* Insertion sort *)
 let rec insert x = function
     | []      -> [x]
     | y :: ys -> if x < y then (x :: y :: xs) else (y :: insert x ys);;
@@ -166,12 +181,14 @@ let rec insert_sort = function
     | []      -> []
     | x :: xs -> insert x insert_sort xs;;
 
+(* Quicksort *)
 let rec quick_sort = function
     | []      -> []
     | x :: xs ->
             let smaller, greater = partition (fun a -> a < x) xs in
             (quick_sort smaller) @ [x] @ (quick_sort greater);;
 
+(* Merge sort *)
 let rec merge = function
     | xs, []           -> xs
     | [], ys           -> ys
