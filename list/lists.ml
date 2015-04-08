@@ -33,6 +33,12 @@ let rec rev = function
   | (x:int) :: xs -> append (rev xs) [x]
 ;;
 
+let rec (===) = function
+	| [], [] 							-> true
+	| [], _::_ | _::_, [] -> false
+	| x::xs, y::ys -> x = y && (xs === ys)
+;;
+
 (* 1. calculate the sum of all elements of a list *)
 let rec sum = function
   | []      -> 0
