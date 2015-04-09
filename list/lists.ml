@@ -239,6 +239,15 @@ let rec drop n xs = match (n, xs) with
      else xs
 ;;
 
+(* The above function using fold right *)
+let dropf l n = fst (
+	fold_right (fun (a, c) x ->
+		if c mod n = 0
+		then (a, c + 1)
+		else (a @ [x], c + 1))
+	([], 1) l
+);;
+
 (* This function 'rotates' the first n elements from the head to the tail *)
 let rec rotate n xs = match (n, xs) with
   | 0, _       -> xs
