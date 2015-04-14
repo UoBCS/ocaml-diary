@@ -112,6 +112,15 @@ let rec interleave = function
   | xs, [] | [], xs        -> xs
   | hd1 :: tl1, hd2 :: tl2 -> hd1 :: hd2 :: (interleave (tl1, tl2));;
 
+let sublist l1 l2 =
+	let rec aux acc = function
+		| [], [] | [], _::_ -> true
+		| _::_, [] -> false
+		| x :: xs, y :: ys -> if x = y then aux (acc @ [x]) (xs, ys)
+							  else if acc = l1 then true
+							  else aux [] (l1, ys)
+in aux [] (l1, l2);;
+
 (* Repeat 'x' y times *)
 let rec repeat x y = match y with
   | 0 -> []
