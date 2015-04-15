@@ -121,6 +121,11 @@ let rec sublist a b = match a, b with
 	| [], _ -> true
 	| _, [] -> false
 	| x :: _, y :: ys -> (prelist a b) || (sublist a ys);;
+	
+(* Merge 2 sorted lists *)
+let rec mergels l1 = function
+	| [] -> l1
+	| x :: xs -> mergels (insert x l1) xs;;
 
 (* Repeat 'x' y times *)
 let rec repeat x y = match y with
