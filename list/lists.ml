@@ -277,6 +277,12 @@ let rec merge_sort = function
              else hd :: insert_at x (i - 1) tl
  ;;
 
+let rec insert_at' e i l = match (i, l) with
+	| _, [] 	 -> []
+	| 0, s 	 	 -> e :: s
+	| n, x :: xs -> x :: insert_at' e (i - 1) xs;;
+
+
 let rec rem_leading x = function
      | []      -> []
      | y :: ys -> if y = x then rem_leading ys else y :: ys
@@ -316,23 +322,6 @@ let rec rotate n xs = match (n, xs) with
   | n, []      -> []
   | n, x :: xs -> rotate (n - 1) xs @ [x]
 ;;
-
-rotate 3 [1;2;3;4;5] = [4; 5; 1; 2; 3];;
-
-(* This function drops n elements from the tail *)
-let rec drop' n xs = ?
-
-drop' 3 [1;2;3;4;5] = [1; 2];;
-
-(* This function takes n elements from the tail *)
-let rec take' n xs = ?
-
-take' 3 [1;2;3;4;5] = [3; 4; 5];;
-
-(* This function rotates n elements from the tail to the head *)
-let rec rotate' n xs = ?
-
-rotate' 2 [1; 2; 3; 4; 5] = [4; 5; 1; 2; 3];;
 
 let every n xs =
   let rec aux n xs i = match (n, xs) with
