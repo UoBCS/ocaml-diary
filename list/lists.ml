@@ -163,6 +163,16 @@ let slicem lo up l =
 	in slicem' 0 l
 ;;
 
+(* Remove at index *)
+let remove_at l i =
+	let rec aux c = function
+		| [] 	  -> []
+		| x :: xs ->
+			if      c < i then x :: aux (c + 1) xs
+			else if c > i then (x::xs)
+			else          aux (c + 1) xs
+	in aux 0 l
+;;
 
 (* Repeat 'x' y times *)
 let rec repeat x y = match y with
