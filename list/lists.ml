@@ -151,6 +151,19 @@ let splitn n l =
 	in splitn' [] (n, l)
 ;;
 
+(* Slice *)
+let slicem lo up l =
+	let rec slicem' c = function
+		| [] 		-> []
+		| x :: xs   ->
+			if c > up then []
+			else if c >= lo
+			then x :: slicem' (c + 1) xs
+			else slicem' (c + 1) xs
+	in slicem' 0 l
+;;
+
+
 (* Repeat 'x' y times *)
 let rec repeat x y = match y with
   | 0 -> []
