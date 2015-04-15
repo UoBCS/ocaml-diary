@@ -127,6 +127,21 @@ let rec mergels l1 = function
 	| [] -> l1
 	| x :: xs -> mergels (insert x l1) xs;;
 
+(* Encode *)
+let rec precount e = function
+	| [] -> 0
+	| x :: xs -> if x = e then 1 + precount e xs else 0
+;;
+
+let encode l =
+	let rec encode' c = function
+		| [] -> []
+		| x :: xs -> if precount x (x :: xs) = 1
+						then (x, c) :: (encode' 1 xs)
+						else encode' (c + 1) xs
+	in encode' 1 l
+;;
+
 (* Repeat 'x' y times *)
 let rec repeat x y = match y with
   | 0 -> []
@@ -317,7 +332,7 @@ let rec elim_consec = function
 
 let elim_dupls xs = elim_consec (List.sort compare xs);;  (* xs |> sort compare |> elim_consec ;; *)
 
-let combine xs ys = 
+let combine xs ys =
 	elim_dupls (List.rev_append xs ys);;
 
 let rec expand x graph explored =
