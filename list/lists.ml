@@ -142,6 +142,15 @@ let encode l =
 	in encode' 1 l
 ;;
 
+(* Split on index *)
+let splitn n l =
+	let rec splitn' acc = function
+		| _, [] 	 -> ([], [])
+		| 0, s 		 -> (acc, s)
+		| n, x :: xs -> splitn' (acc @ [x]) ((n - 1), xs)
+	in splitn' [] (n, l)
+;;
+
 (* Repeat 'x' y times *)
 let rec repeat x y = match y with
   | 0 -> []
