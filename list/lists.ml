@@ -298,12 +298,12 @@ let every n xs =
   in aux n xs 1
 ;;
 
-let rec interleave = function
+let rec interleaven = function
   | []      -> []
   | x :: xs ->
      match x with
-     | []      -> []
-     | y :: ys -> y :: interleave (xs @ [ys])
+     | []      -> interleaven xs
+     | y :: ys -> y :: interleaven (xs @ [ys])
 ;;
 
 (* Find connected components *)
