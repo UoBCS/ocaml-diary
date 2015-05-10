@@ -118,3 +118,13 @@ let digit_factorials n =
 let is_pandigital_prime n =
   is_prime n &&
   (n |> string_of_int |> explode |> List.sort compare |> List.map int_of_string |> is_consecutive);;
+
+let perm_ord n = (n |> string_of_int |> explode |> List.map int_of_string |> List.sort compare);;
+
+let smallest_pm () =
+  let rec aux i =
+    let po = perm_ord i in
+    if (po = (perm_ord (2 * i)) &&  po = (perm_ord (3 * i)) &&  po = (perm_ord (4 * i)) &&
+    po = (perm_ord (5 * i)) &&  po = (perm_ord (6 * i))) then i else aux (i + 1)
+  in aux 1
+;;
