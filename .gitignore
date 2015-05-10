@@ -8,3 +8,4 @@
 *.cmxs
 *.cmxa
 *.out
+clean
